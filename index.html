@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Таня Каменєва — Creative Director</title>
+<style>
+/* ═══════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+:root{
+  --bg:     #0c0c0c;
+  --bg2:    #111;
+  --bg3:    #181818;
+  --fg:     #f0ede8;
+  --fg2:    #a0 9d98;
+  --fg2:    #a09d98;
+  --muted:  #444;
+  --muted2: #282828;
+  --line:   #1e1e1e;
+  --line2:  #252525;
+  --red:    #c0392b;
+  --nav-h:  56px;
+  --tab-h:  40px;
+  --top:    96px;
+  --sb:     152px;
+  --pad:    64px;
+  --ease:   cubic-bezier(.4,0,.2,1);
+}
+
+body{
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--fg);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS
+═══════════════════════════════════════════ */
+#prog{position:fixed;top:0;left:0;height:1px;background:rgba(240,237,232,.4);z-index:999;pointer-events:none;transition:width .08s linear}
+
+/* ═══════════════════════════════════════════
+   TOP NAV
+═══════════════════════════════════════════ */
+.nav{
+  position:fixed;inset:0 0 auto 0;height:var(--nav-h);
+  background:rgba(12,12,12,.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 36px;z-index:200;
+}
+.nav-logo{display:flex;align-items:baseline;gap:12px;text-decoration:none;color:inherit}
+.nav-name{font-size:13px;font-weight:600;letter-spacing:.13em;text-transform:uppercase}
+.nav-role{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+
+.nav-links{display:flex;align-items:center}
+.nav-btn{
+  background:none;border:none;font-family:inherit;
+  font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;padding:10px 18px;
+  border-left:1px solid var(--line);transition:color .2s var(--ease);
+}
+.nav-btn:first-child{border-left:none}
+.nav-btn:hover,.nav-btn.active{color:var(--fg)}
+
+.nav-cv{
+  background:none;border:1px solid var(--muted2);font-family:inherit;
+  font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--fg2);cursor:pointer;padding:9px 22px;margin-left:20px;
+  transition:all .2s var(--ease);
+}
+.nav-cv:hover{border-color:var(--fg);color:var(--fg)}
+
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.burger span{display:block;width:22px;height:1.5px;background:var(--fg2);transition:all .3s}
+
+.mob-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--line);flex-direction:column;z-index:300}
+.mob-menu.open{display:flex}
+.mob-btn{background:none;border:none;border-bottom:1px solid var(--line);font-family:inherit;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg2);text-align:left;padding:16px 24px;cursor:pointer}
+.mob-btn:hover{color:var(--fg);background:var(--bg)}
+
+/* ═══════════════════════════════════════════
+   CATEGORY TABS
+═══════════════════════════════════════════ */
+.tab-stub{position:fixed;top:var(--nav-h);left:0;width:var(--sb);height:var(--tab-h);background:var(--bg);border-right:1px solid var(--line);border-bottom:1px solid var(--line);z-index:199}
+.tabs{
+  position:fixed;top:var(--nav-h);left:var(--sb);right:0;
+  height:var(--tab-h);background:rgba(12,12,12,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;z-index:199;
+}
+.tabs::-webkit-scrollbar{display:none}
+.cat-tab{
+  background:none;border:none;border-bottom:1.5px solid transparent;
+  font-family:inherit;font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;padding:0 22px;white-space:nowrap;
+  transition:all .2s var(--ease);
+}
+.cat-tab:hover{color:var(--fg2)}
+.cat-tab.active{color:var(--fg);border-bottom-color:var(--fg)}
+
+/* ═══════════════════════════════════════════
+   SIDEBAR  01 / 02 / 03
+═══════════════════════════════════════════ */
+.sb{
+  position:fixed;top:var(--top);left:0;
+  width:var(--sb);height:calc(100vh - var(--top));
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;
+  background:var(--bg);z-index:198;
+}
+.sb-item{
+  flex:1;display:flex;flex-direction:column;justify-content:flex-start;
+  padding:22px 18px 16px;border-bottom:1px solid var(--line);
+  cursor:pointer;transition:background .2s var(--ease);
+}
+.sb-item:last-child{border-bottom:none}
+.sb-item:hover{background:var(--bg2)}
+.sb-n{font-size:30px;font-weight:200;color:var(--muted);line-height:1;margin-bottom:10px;transition:color .3s;letter-spacing:-.01em}
+.sb-l{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);line-height:1.65;transition:color .3s}
+.sb-item.active .sb-n{color:var(--fg)}
+.sb-item.active .sb-l{color:var(--fg2)}
+
+/* ═══════════════════════════════════════════
+   MAIN
+═══════════════════════════════════════════ */
+.main{margin-left:var(--sb);padding-top:var(--top)}
+
+/* ═══════════════════════════════════════════
+   01  HERO — ХТО Я
+═══════════════════════════════════════════ */
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:calc(100vh - var(--top));
+  border-bottom:2px solid var(--line2);
+}
+
+/* Portrait side */
+.hero-photo{
+  position:relative;overflow:hidden;
+  background:var(--bg2);
+  border-right:1px solid var(--line);
+}
+.hero-photo img{
+  width:100%;height:112%;
+  object-fit:cover;object-position:center top;
+  display:block;
+  position:absolute;top:-6%;left:0;
+  will-change:transform;
+}
+.hero-photo{position:relative;overflow:hidden}
+/* placeholder when no photo */
+.hero-photo-placeholder{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  min-height:500px;
+}
+
+/* Text side */
+.hero-info{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:64px var(--pad) 56px;
+  will-change:transform;
+  position:relative;z-index:1;
+}
+.hero-name{
+  font-size:clamp(40px,5.5vw,80px);font-weight:200;
+  letter-spacing:-.02em;text-transform:uppercase;line-height:1;
+  will-change:transform;position:relative;
+}
+.hero-name strong{font-weight:700}
+.hero-role{
+  font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--muted);margin-top:16px;display:block;
+  will-change:transform;position:relative;
+}
+.hero-exp{
+  margin-top:40px;
+  border-top:1px solid var(--line);
+  padding-top:28px;
+  will-change:transform;position:relative;
+}
+.hero-cv{
+  background:none;border:1px solid var(--muted2);font-family:inherit;
+  font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--fg2);cursor:pointer;padding:12px 28px;margin-top:32px;
+  transition:all .2s var(--ease);display:inline-block;
+}
+.hero-cv:hover{border-color:var(--fg);color:var(--fg)}
+
+/* exp table */
+.exp{width:100%;border-collapse:collapse}
+.exp tr{border-bottom:1px solid var(--line);transition:background .2s}
+.exp tr:last-child{border-bottom:none}
+.exp tr:hover{background:var(--bg2);margin:0 -8px}
+.exp td{padding:10px 0;vertical-align:middle}
+.exp-co{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;width:44%}
+.exp-role{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2)}
+.exp-yr{font-size:9px;letter-spacing:.06em;color:var(--muted);text-align:right;white-space:nowrap}
+
+/* ═══════════════════════════════════════════
+   SECTION STRIP (category group header)
+═══════════════════════════════════════════ */
+.strip{
+  padding:14px var(--pad);background:var(--bg2);
+  border-bottom:1px solid var(--line);
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);
+  will-change:transform;
+  position:relative;
+}
+
+/* ═══════════════════════════════════════════
+   PROJECT BLOCK
+═══════════════════════════════════════════ */
+.project{border-bottom:2px solid var(--line2)}
+.cat-group{border-bottom:2px solid var(--line2)}
+
+.project-title{
+  font-size:clamp(26px,4vw,56px);font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;line-height:1;
+  padding:52px var(--pad) 42px;
+  border-bottom:1px solid var(--line);
+  will-change:transform;
+  position:relative;
+}
+
+/* ═══════════════════════════════════════════
+   ZONE  (scroll-spy unit — all under 02)
+═══════════════════════════════════════════ */
+.zone{padding:48px var(--pad);border-bottom:1px solid var(--line)}
+.zone:last-of-type{}
+
+.sec-label{
+  font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:20px;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE IMAGES
+═══════════════════════════════════════════ */
+.slide{width:100%;display:block;border-bottom:1px solid var(--line)}
+.slide{overflow:hidden}
+.slide img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;will-change:transform}
+
+.slide2{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);overflow:hidden}
+.slide2 img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;will-change:transform}
+
+.slide3{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line);overflow:hidden}
+.slide3 img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;will-change:transform}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY UTILS
+═══════════════════════════════════════════ */
+.body{font-size:12px;line-height:2;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);max-width:640px}
+.quote{
+  font-size:clamp(14px,2vw,22px);font-weight:300;line-height:1.6;color:var(--fg);
+  max-width:680px;border-left:2px solid var(--red);padding-left:22px;margin:22px 0;
+}
+.big{font-size:clamp(18px,3vw,38px);font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.1;margin:18px 0}
+.pipe{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg2);line-height:2.5;margin-top:14px}
+.pipe span{color:var(--muted2);margin:0 8px}
+
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--line2);color:var(--fg2)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:20px}
+.col-h{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+
+.stats{display:flex;gap:48px;flex-wrap:wrap;margin-top:22px}
+.stat-n{font-size:36px;font-weight:700;letter-spacing:-.01em;line-height:1}
+.stat-l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+
+.swatches{display:flex;gap:8px;margin-top:14px;align-items:flex-end;flex-wrap:wrap}
+.sw{width:32px;height:32px;border-radius:50%}
+.sw-hex{font-size:8px;letter-spacing:.1em;color:var(--muted);margin-top:6px}
+
+/* ═══════════════════════════════════════════
+   03  STRATEGY SECTION
+═══════════════════════════════════════════ */
+.logic-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.logic-col{padding:30px 28px;border-right:1px solid var(--line)}
+.logic-col:last-child{border-right:none}
+.logic-h{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+
+.arch{display:grid;grid-template-columns:repeat(3,1fr);margin-top:20px;border:1px solid var(--line)}
+.arch-c{padding:9px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--line);border-right:1px solid var(--line);color:var(--fg2)}
+.arch-c:nth-child(3n){border-right:none}
+.arch-c.h{color:var(--muted);font-size:8px}
+
+.love-f{font-size:clamp(11px,1.6vw,18px);font-weight:300;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);margin:16px 0}
+.love-f strong{color:var(--fg);font-weight:700}
+
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.srv-col{padding:30px 28px;border-right:1px solid var(--line)}
+.srv-col:last-child{border-right:none}
+.srv-n{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.srv-h{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.srv-ul{list-style:none}
+.srv-ul li{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg2);padding:6px 0;border-bottom:1px solid var(--line)}
+.srv-ul li:last-child{border-bottom:none}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.footer{padding:34px var(--pad);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-l{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.footer-r{display:flex;gap:24px;flex-wrap:wrap}
+.f-link{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;background:none;border:none;font-family:inherit;cursor:pointer;transition:color .2s}
+.f-link:hover{color:var(--fg)}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:900px){
+  :root{--sb:0px;--pad:24px}
+  .sb,.tab-stub{display:none}
+  .tabs{left:0}
+  .nav-links,.nav-cv{display:none}
+  .burger{display:flex}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-photo{min-height:60vw;max-height:70vh}
+  .hero-info{padding:40px var(--pad)}
+  .g2,.g3,.logic-grid,.srv-grid{grid-template-columns:1fr}
+  .logic-col,.srv-col{border-right:none;border-bottom:1px solid var(--line)}
+  .exp-yr{display:none}
+  .slide2,.slide3{grid-template-columns:1fr}
+  .arch{grid-template-columns:1fr 1fr}
+  .footer{padding:24px var(--pad)}
+}
+@media(max-width:480px){
+  .hero-name{font-size:32px}
+  .project-title{font-size:22px}
+  .cat-tab{font-size:8px;padding:0 14px}
+  .stats{gap:28px}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+  <a class="nav-logo" href="#hero" onclick="gotoSection('hero')">
+    <span class="nav-name">Таня Каменєва</span>
+    <span class="nav-role">Creative Director</span>
+  </a>
+  <div class="nav-links">
+    <button class="nav-btn" id="nb-brand"  onclick="gotoSection('s-brand')">Брендинг</button>
+    <button class="nav-btn" id="nb-id"     onclick="gotoSection('s-id')">Айдентика</button>
+    <button class="nav-btn" id="nb-adv"    onclick="gotoSection('s-adv')">Рекламні кампанії</button>
+    <button class="nav-btn" id="nb-global" onclick="gotoSection('s-global')">Глобальні акції</button>
+    <button class="nav-btn" id="nb-strat"  onclick="gotoSection('s-strat')">Стратегія</button>
+  </div>
+  <button class="nav-cv" onclick="dlCV()">↓&nbsp;Скачати CV</button>
+  <button class="burger" id="burg" onclick="toggleMob()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- mobile menu -->
+<div class="mob-menu" id="mob">
+  <button class="mob-btn" onclick="gotoSection('s-brand');toggleMob()">Брендинг</button>
+  <button class="mob-btn" onclick="gotoSection('s-id');toggleMob()">Айдентика</button>
+  <button class="mob-btn" onclick="gotoSection('s-adv');toggleMob()">Рекламні кампанії</button>
+  <button class="mob-btn" onclick="gotoSection('s-global');toggleMob()">Глобальні акції</button>
+  <button class="mob-btn" onclick="gotoSection('s-strat');toggleMob()">Стратегія</button>
+  <button class="mob-btn" onclick="dlCV();toggleMob()">↓ Скачати CV</button>
+</div>
+
+<!-- ═══ TABS ═══ -->
+<div class="tab-stub"></div>
+<div class="tabs" id="tabs">
+  <button class="cat-tab active" data-c="all"      onclick="tabClick('all',this)">Всі</button>
+  <button class="cat-tab"        data-c="brand"    onclick="tabClick('brand',this)">Брендинг</button>
+  <button class="cat-tab"        data-c="id"       onclick="tabClick('id',this)">Айдентика</button>
+  <button class="cat-tab"        data-c="adv"      onclick="tabClick('adv',this)">Рекламні кампанії</button>
+  <button class="cat-tab"        data-c="global"   onclick="tabClick('global',this)">Глобальні акції</button>
+</div>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sb">
+  <div class="sb-item active" id="sb1" onclick="sbClick(1)">
+    <div class="sb-n">01</div>
+    <div class="sb-l">Хто<br>я</div>
+  </div>
+  <div class="sb-item" id="sb2" onclick="sbClick(2)">
+    <div class="sb-n">02</div>
+    <div class="sb-l">Що я<br>роблю</div>
+  </div>
+  <div class="sb-item" id="sb3" onclick="sbClick(3)">
+    <div class="sb-n">03</div>
+    <div class="sb-l">Як я<br>роблю</div>
+  </div>
+</aside>
+
+<!-- ════════════════════════════════════════════════════
+     MAIN
+════════════════════════════════════════════════════ -->
+<main class="main">
+
+<!-- ═══════════════════════════════════════
+     01  ХТО Я — HERO
+═══════════════════════════════════════ -->
+<section class="hero" id="hero" data-s="1" data-c="all">
+
+  <!-- Portrait -->
+  <div class="hero-photo">
+    <img src="assets/portrait.jpg" alt="Таня Каменєва" onerror="this.parentNode.innerHTML='<div class=hero-photo-placeholder>portrait.jpg</div>'">
+  </div>
+
+  <!-- Info -->
+  <div class="hero-info">
+    <div>
+      <div style="font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:20px">Creative Director · Kyiv</div>
+      <div class="hero-name">Таня<br><strong>Каменєва</strong></div>
+      <span class="hero-role">Стратегія · Брендинг · Комунікація</span>
+    </div>
+
+    <div class="hero-exp">
+      <table class="exp">
+        <tr><td class="exp-co">Totis Pharma Group</td><td class="exp-role">Creative Director</td><td class="exp-yr">2024 — 2026</td></tr>
+        <tr><td class="exp-co">Medinform (Twiga)</td><td class="exp-role">Art Director</td><td class="exp-yr">2021 — 2022</td></tr>
+        <tr><td class="exp-co">AMS Agency</td><td class="exp-role">Head of Graphic Design</td><td class="exp-yr">2020 — 2021</td></tr>
+        <tr><td class="exp-co">Nahaba / CF Digital</td><td class="exp-role">Graphic / Motion Designer</td><td class="exp-yr">2019 — 2020</td></tr>
+        <tr><td class="exp-co">КНУ ім. Шевченка</td><td class="exp-role">Лектор, науковий асистент</td><td class="exp-yr">2010 — 2016</td></tr>
+      </table>
+      <button class="hero-cv" onclick="dlCV()">↓&nbsp;&nbsp;Повне CV</button>
+    </div>
+  </div>
+
+</section><!-- /hero -->
+
+
+<!-- ═══════════════════════════════════════
+     02  ЩО Я РОБЛЮ — ВСІ ПРОЄКТИ
+═══════════════════════════════════════ -->
+
+<!-- ────────── БРЕНДИНГ ────────── -->
+<div class="cat-group" id="s-brand">
+<div class="strip" data-s="2" data-c="brand">02 — Що я роблю · Брендинг</div>
+
+<!-- MARIA GALLAND -->
+<div class="project">
+  <div class="project-title">Maria Galland</div>
+
+  <div class="zone" data-s="2" data-c="brand">
+    <div class="sec-label">01 — Хто клієнт</div>
+    <div class="body">Maria Galland Paris — французький<br>професійний бренд догляду за шкірою,<br>заснований у 1962 році в Парижі.<br><br>Бренд поєднує дерматологічну експертизу,<br>сенсорні текстури та унікальні масажні техніки.</div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD-03.jpg" alt="Maria Galland — продуктовий фотосет" loading="lazy"></div>
+  <div class="slide"><img src="assets/ME_CD-04.jpg" alt="Maria Galland — бренд-провідники" loading="lazy"></div>
+
+  <div class="zone" data-s="2" data-c="brand">
+    <div class="sec-label">02 — Що я роблю</div>
+    <div class="body">Адаптувати бренд до ринку України.<br>Визначити ЦА, розробити позиціонування,<br>відповідний TOV, брендинг та прояви бренду<br>в точках контакту з ЦА.</div>
+    <div class="quote">C-рівень. Мова цифр. Data-driven комунікація.<br>Людина, яка знає ціну своєму ресурсу.</div>
+    <div class="big">«ТИ І Є СВІЙ LIFELONG ПРОЕКТ»</div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD-06.jpg" alt="Maria Galland — сайт та позиціонування" loading="lazy"></div>
+  <div class="slide"><img src="assets/ME_CD-07.jpg" alt="Maria Galland — комунікація outdoor" loading="lazy"></div>
+
+  <div class="zone" data-s="2" data-c="brand">
+    <div class="sec-label">03 — Як я роблю</div>
+    <div class="pipe">Стратегія і позиціонування <span>|</span> Брендинг і стиль <span>|</span> Фотосет бренд-провідників <span>|</span> Відео-маніфест <span>|</span> Сайт <span>|</span> SMM <span>|</span> Планер-кодекс <span>|</span> Google / Meta Ads</div>
+    <div class="big" style="margin-top:24px;font-size:clamp(14px,2vw,24px)">Маніфест: «ГАРНА ШКІРА — ЦЕ ФІЛОСОФІЯ ТА РЕЛІГІЯ»</div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD-08.jpg" alt="Maria Galland — кодекс-планер" loading="lazy"></div>
+  <div class="slide"><img src="assets/ME_CD-09.jpg" alt="Maria Galland — маніфест і результати" loading="lazy"></div>
+</div><!-- /maria galland -->
+
+<!-- SIA MED SUMMIT -->
+<div class="project">
+  <div class="project-title">SIA Med Summit</div>
+
+  <div class="zone" data-s="2" data-c="brand">
+    <div class="sec-label">01 — Хто клієнт</div>
+    <div class="body">Щорічний івент для топ-косметологів.<br>Обмін досвідом, знаннями, бізнес-ідеями.<br><br>Ідея — зібрати лідерів думок і top-of-mind гравців ринку.</div>
+  </div>
+
+  <div class="zone" data-s="2" data-c="brand">
+    <div class="sec-label">02 — Що я роблю</div>
+    <div class="body">Спозиціонувати серед інших івентів.<br>Сформулювати головний посил і цінності.<br>Дати цьому назву. Створити брендинг.</div>
+    <div class="quote">Синергія відбувається лише у відкритих системах.<br>Розвиток трапляється на стику дисциплін.</div>
+    <div class="g3" style="margin-top:28px">
+      <div>
+        <div class="col-h">Неймінг</div>
+        <div class="big" style="font-size:clamp(22px,3vw,40px)">SIA</div>
+        <div class="body" style="margin-top:8px">Science · Innovation · Aesthetics</div>
+      </div>
+      <div>
+        <div class="col-h">Кольори</div>
+        <div class="swatches">
+          <div><div class="sw" style="background:#68A007"></div><div class="sw-hex">#68A007</div></div>
+          <div><div class="sw" style="background:#5B49D3"></div><div class="sw-hex">#5B49D3</div></div>
+          <div><div class="sw" style="background:#EFD12A"></div><div class="sw-hex">#EFD12A</div></div>
+          <div><div class="sw" style="background:#1d1d1b;border:1px solid var(--line2)"></div><div class="sw-hex">#1d1d1b</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="col-h">Підхід</div>
+        <div class="body">Кроссдисциплінарний підхід.<br>Спікери з різних суміжних сфер — від психології до хірургії.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD-13.jpg" alt="SIA — логотип" loading="lazy"></div>
+  <div class="slide"><img src="assets/ME_CD-14.jpg" alt="SIA — logo/colour/font" loading="lazy"></div>
+
+  <div class="zone" data-s="2" data-c="brand">
+    <div class="sec-label">03 — Як я роблю</div>
+    <div class="pipe">Стратегія <span>|</span> Неймінг <span>|</span> Логотип <span>|</span> Брендинг <span>|</span> Motion <span>|</span> Landing Page <span>|</span> Офлайн-матеріали <span>|</span> SMM</div>
+    <div class="stats">
+      <div><div class="stat-n">500+</div><div class="stat-l">Учасників</div></div>
+      <div><div class="stat-n">30+</div><div class="stat-l">Спікерів</div></div>
+      <div><div class="stat-n">2026</div><div class="stat-l">SIA — Coming Soon</div></div>
+    </div>
+  </div>
+
+  <div class="slide2">
+    <img src="assets/ME_CD-15.jpg" alt="SIA — offline 1" loading="lazy">
+    <img src="assets/ME_CD-16.jpg" alt="SIA — offline 2" loading="lazy">
+  </div>
+  <div class="slide"><img src="assets/ME_CD-17.jpg" alt="SIA — motion" loading="lazy"></div>
+  <div class="slide"><img src="assets/ME_CD-18.jpg" alt="SIA — landing page" loading="lazy"></div>
+  <div class="slide"><img src="assets/ME_CD-19.jpg" alt="SIA — SMM" loading="lazy"></div>
+  <div class="slide"><img src="assets/ME_CD-20.jpg" alt="SIA Med Summit 2026" loading="lazy"></div>
+</div><!-- /sia -->
+</div><!-- /брендинг -->
+
+
+<!-- ────────── АЙДЕНТИКА ────────── -->
+<div class="cat-group" id="s-id">
+<div class="strip" data-s="2" data-c="id">02 — Що я роблю · Айдентика</div>
+
+<!-- FROOBOOK -->
+<div class="project">
+  <div class="project-title">Froobook</div>
+
+  <div class="zone" data-s="2" data-c="id">
+    <div class="sec-label">01 — Хто клієнт</div>
+    <div class="body">Froobook — сервіс для букінгу послуг<br>всіх салонів краси твого міста.</div>
+  </div>
+
+  <div class="zone" data-s="2" data-c="id">
+    <div class="sec-label">02 — Що я роблю</div>
+    <div class="body">Розробка айдентики, слогану.</div>
+    <div class="g2" style="margin-top:24px">
+      <div><div class="col-h">01 — Пошукова система / Геолокація</div><div class="body">Місце зустрічі продавця і покупця послуги.</div></div>
+      <div><div class="col-h">02 — Територія Beauty Salon</div><div class="body">Досвід задоволення від selfcare. Релакс.</div></div>
+      <div><div class="col-h">03 — Послуга в чистому вигляді</div><div class="body">Оновлення вигляду без прив'язки до виконавця.</div></div>
+      <div><div class="col-h">04 — My Places</div><div class="body">Всесвіт моїх експериментів і відбір улюблених.</div></div>
+    </div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD-23.jpg" alt="Froobook — лого, слоган, кольори" loading="lazy"></div>
+
+  <div class="zone" data-s="2" data-c="id">
+    <div class="sec-label">03 — Як я роблю</div>
+    <div class="body">Слоган «забукай лук» — лаконічно кодує продукт.<br><br>Патерн із множення літери «О» в лого:<br>алюзія на календар, кількість користувачів, точки на карті.</div>
+    <div class="tags"><span class="tag">Логотип</span><span class="tag">Слоган</span><span class="tag">Кольорова система</span><span class="tag">Патерн</span><span class="tag">Айдентика</span></div>
+  </div>
+
+  <div class="slide2">
+    <img src="assets/ME_CD-24.jpg" alt="Froobook — О-патерн" loading="lazy">
+    <img src="assets/ME_CD-25.jpg" alt="Froobook — патерн людей" loading="lazy">
+  </div>
+  <div class="slide"><img src="assets/ME_CD-26.jpg" alt="Froobook — бізнес-картки" loading="lazy"></div>
+</div><!-- /froobook -->
+
+<!-- TOTIS ACADEMY -->
+<div class="project">
+  <div class="project-title">Totis Academy</div>
+
+  <div class="zone" data-s="2" data-c="id">
+    <div class="sec-label">01 — Хто клієнт</div>
+    <div class="body">Перша в Україні акредитована академія для косметологів.<br>«Вирощування» професіоналів з нуля.</div>
+  </div>
+
+  <div class="zone" data-s="2" data-c="id">
+    <div class="sec-label">02 — Що я роблю</div>
+    <div class="body">Алюзія на Таблицю Менделєєва.<br>Чорний через дисперсію розкладається на Cyan–Magenta–Yellow:<br>як краса народжується з посередності.</div>
+    <div class="big" style="margin-top:20px;font-size:clamp(13px,1.8vw,20px);line-height:1.8">A — Is For Academy<br>A — Is For Anatomy<br>A — Is For Alchemistry<br>A — Is For Award</div>
+    <div class="quote">«Краса — не те, що ми робимо.<br>Краса — те, що ми робимо можливим.»</div>
+  </div>
+
+  <div class="slide2">
+    <img src="assets/ME_CD-28.jpg" alt="Totis Academy — паковання, логотип" loading="lazy">
+    <img src="assets/ME_CD-29.jpg" alt="Totis Academy — скляні куби" loading="lazy">
+  </div>
+
+  <div class="zone" data-s="2" data-c="id">
+    <div class="sec-label">03 — Як я роблю</div>
+    <div class="tags"><span class="tag">Концепція</span><span class="tag">Логотип</span><span class="tag">CMY система</span><span class="tag">Скло · Фольга · Дисперсія</span><span class="tag">Брендинг</span></div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD-30.jpg" alt="Totis Academy — стиль" loading="lazy"></div>
+</div><!-- /academy -->
+</div><!-- /айдентика -->
+
+
+<!-- ────────── РЕКЛАМНІ КАМПАНІЇ ────────── -->
+<div class="cat-group" id="s-adv">
+<div class="strip" data-s="2" data-c="adv">02 — Що я роблю · Рекламні кампанії</div>
+
+<!-- GLYMED -->
+<div class="project">
+  <div class="project-title">GlyMed</div>
+
+  <div class="zone" data-s="2" data-c="adv">
+    <div class="sec-label">01 — Хто клієнт</div>
+    <div class="body">Бренд професійної космецевтики.<br>Орієнтація на естетистів, косметологів і клініки, а не мас-маркет.<br><br>Поєднання дерматології та біохімії натуральних інгредієнтів.</div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD_1-01.jpg" alt="GlyMed — амбасадори-косметологи" loading="lazy"></div>
+
+  <div class="zone" data-s="2" data-c="adv">
+    <div class="sec-label">02 — Що я роблю</div>
+    <div class="body">Спозиціонувати бренд для ринку України.<br>Створити ідею комунікації та розробити рекламні матеріали.<br>Фото- і відеозйомка, інтеграція фірмового 3D-елементу.</div>
+    <div class="big" style="margin-top:20px">«Формула найефективнішого міксу — ТИ»</div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD_1-02.jpg" alt="GlyMed — раціональні меседжі, авторський протокол" loading="lazy"></div>
+  <div class="slide"><img src="assets/ME_CD_1-03.jpg" alt="GlyMed — емоційні меседжі" loading="lazy"></div>
+
+  <div class="zone" data-s="2" data-c="adv">
+    <div class="sec-label">03 — Як я роблю</div>
+    <div class="body">Раціональні меседжі — як рецепти-протоколи для косметологів.<br>Емоційні меседжі — вплетені в динамічну айдентику.<br>Фірмовий 3D-елемент — алхімічний коктейль із часточок.</div>
+    <div class="tags"><span class="tag">Позиціонування</span><span class="tag">Рекламна комунікація</span><span class="tag">Фотосет</span><span class="tag">Відеозйомка</span><span class="tag">3D-елемент</span><span class="tag">Амбасадори</span></div>
+  </div>
+
+  <div class="slide"><img src="assets/ME_CD_1-04.jpg" alt="GlyMed — фірмовий 3D елемент" loading="lazy"></div>
+</div><!-- /glymed -->
+
+<!-- DR SPILLER -->
+<div class="project">
+  <div class="project-title">Dr Spiller</div>
+
+  <div class="zone" data-s="2" data-c="adv">
+    <div class="sec-label">01 — Хто клієнт</div>
+    <div class="body">Бренд, який став у витоків формування косметологічної галузі в Україні.<br><br>Становлення косметолога як професіонала, а не алхіміка в домашніх умовах.</div>
+  </div>
+
+  <div class="zone" data-s="2" data-c="adv">
+    <div class="sec-label">02 — Що я роблю</div>
+    <div class="body">Рекламна комунікація: 3 флайти.</div>
+    <div class="g3" style="margin-top:22px">
+      <div><div class="col-h">Flight 1</div><div class="body">23 роки на ринку України.<br>«Косметологічний бренд №1»<br>Для 26 міст окремо.</div></div>
+      <div><div class="col-h">Flight 2</div><div class="body">Dr Spiller як свідок становлення галузі.<br>«Бачив багато щемливих трендів»</div></div>
+      <div><div class="col-h">Flight 3</div><div class="body">«Більший за тренди —<br>він пропонує базу»</div></div>
+    </div>
+  </div>
+
+  <!-- Flight 1 — three cities -->
+  <div class="slide3">
+    <img src="assets/ME_CD_1-05.jpg" alt="Dr Spiller — Дніпро обирає" loading="lazy">
+    <img src="assets/ME_CD_1-06.jpg" alt="Dr Spiller — Львів обирає" loading="lazy">
+    <img src="assets/ME_CD_1-07.jpg" alt="Dr Spiller — Івано-Франківськ обирає" loading="lazy">
+  </div>
+  <!-- Flight 2 + 3 -->
+  <div class="slide2">
+    <img src="assets/ME_CD_1-08.jpg" alt="Dr Spiller — Flight 2" loading="lazy">
+    <img src="assets/ME_CD_1-09.jpg" alt="Dr Spiller — Flight 3" loading="lazy">
+  </div>
+
+  <div class="zone" data-s="2" data-c="adv">
+    <div class="sec-label">03 — Як я роблю</div>
+    <div class="tags"><span class="tag">Рекламна комунікація</span><span class="tag">3 флайти</span><span class="tag">26 міст</span><span class="tag">Промо-відео</span></div>
+  </div>
+</div><!-- /dr spiller -->
+</div><!-- /рекламні -->
+
+
+<!-- ────────── ГЛОБАЛЬНІ АКЦІЇ ────────── -->
+<div class="cat-group" id="s-global">
+<div class="strip" data-s="2" data-c="global">02 — Що я роблю · Глобальні акції</div>
+
+<div class="project">
+  <div class="project-title">Totis — Глобальні акції</div>
+
+  <div class="zone" data-s="2" data-c="global">
+    <div class="sec-label">01 — Хто клієнт</div>
+    <div class="body">Totis Pharma Group — 5 країн.<br><br>Створення ідей для акційних активностей:<br>Різдво — Новий рік, День закоханих, 8 березня,<br>Хелоуін та Black Friday.</div>
+  </div>
+
+  <div class="zone" data-s="2" data-c="global">
+    <div class="sec-label">02 — Що я роблю</div>
+    <div class="body">Google / Meta Ads · SMM активність · Застосунок · Сайт</div>
+    <div class="quote">Створення ключової ідеї на основі інсайту, формування ключового віжуалу та промо-відео, супровід і розширення для всіх напрямків бізнесу на 5 країн.</div>
+  </div>
+
+  <!-- Christmas -->
+  <div class="zone" data-s="2" data-c="global" style="border-top:1px solid var(--line2)">
+    <div class="sec-label">Різдво — Новий рік</div>
+    <div class="big">«Світи як різдвяна зірка»</div>
+    <div class="body" style="margin-top:10px">Відродження національної традиції + католицький простір.<br>«Світити як зірка — означає жити попри все.»</div>
+  </div>
+  <div class="slide"><img src="assets/ME_CD-32.jpg" alt="Різдво — Зірка" loading="lazy"></div>
+
+  <!-- Halloween / BF -->
+  <div class="zone" data-s="2" data-c="global">
+    <div class="sec-label">Хелоуін → Чорна п'ятниця</div>
+    <div class="big">«Маскарад» → «Зривай маски»</div>
+    <div class="body" style="margin-top:10px">90% жінок виходять зранку з косметичною маскою. 35% всіх процедур — маски. Хелоуін у косметологів = Маскарад.</div>
+    <div class="stats">
+      <div><div class="stat-n">5</div><div class="stat-l">Країн</div></div>
+      <div><div class="stat-n">4</div><div class="stat-l">Хвилі</div></div>
+      <div><div class="stat-n">60</div><div class="stat-l">Днів акції</div></div>
+      <div><div class="stat-n">4000</div><div class="stat-l">Макетів</div></div>
+    </div>
+  </div>
+  <div class="slide2">
+    <img src="assets/ME_CD-33.jpg" alt="Halloween — Маскарад" loading="lazy">
+    <img src="assets/ME_CD-34.jpg" alt="Black Friday — Зривай маски" loading="lazy">
+  </div>
+
+  <!-- Valentine -->
+  <div class="zone" data-s="2" data-c="global">
+    <div class="sec-label">День закоханих · 14 лютого</div>
+    <div class="big">GoldenLove — «Свято здорової любові»</div>
+    <div class="body" style="margin-top:10px">Instagram-серіал. Постіронія і гротеск. Produced by Totis. Засновано на реальних подіях.</div>
+    <div class="tags"><span class="tag">Instagram-серіал</span><span class="tag">GoldenLove</span><span class="tag">Skin Dating</span><span class="tag">Постіронія</span></div>
+  </div>
+  <div class="slide2">
+    <img src="assets/ME_CD-35.jpg" alt="GoldenLove — Valentine's" loading="lazy">
+    <img src="assets/ME_CD-36.jpg" alt="Skin Dating — Valentine's" loading="lazy">
+  </div>
+
+</div>
+</div><!-- /глобальні акції -->
+
+
+<!-- ═══════════════════════════════════════
+     03  ЯК Я РОБЛЮ — СТРАТЕГІЯ
+═══════════════════════════════════════ -->
+<div id="s-strat">
+<div class="strip" data-s="3" data-c="strat">03 — Як я роблю</div>
+
+<div class="project">
+  <div class="project-title">Як взяти з мене максимум</div>
+
+  <!-- Умови та підхід -->
+  <div class="zone" data-s="3" data-c="strat">
+    <div class="sec-label">Я буду для вас корисна, якщо:</div>
+    <div class="body">
+      — У вас є команда дизайнерів, але не вистачає єдиного «вектору»<br>
+      — Немає команди, яка б продукувала візуальні рішення<br>
+      — Є запит на «скелет», ядро, загальну систему координат<br>
+      — Потрібна комунікація з нуля до фіналу<br>
+      — Шукаєте довгострокового партнера, а не підрядника
+    </div>
+    <div style="margin-top:32px">
+      <div class="body">
+        Я працюю у співавторстві з вами.<br>
+        Я не створюю «бренди з сенсами».<br>
+        Я працюю руками і можу підхопити задачу на будь-якому етапі,<br>
+        але більше я працюю головою.
+      </div>
+    </div>
+    <!-- Quote moved here — after the description -->
+    <div class="quote" style="margin-top:28px">
+      «Якщо нічого не працює —<br>
+      варто нарешті прочитати інструкцію.»
+    </div>
+  </div>
+
+  <!-- Логіка комунікації -->
+  <div class="zone" data-s="3" data-c="strat">
+    <div class="sec-label">Логіка побудови комунікації</div>
+    <div class="logic-grid">
+      <div class="logic-col">
+        <div class="logic-h">Раціональна комунікація</div>
+        <div class="body">Чітке бачення ролі продукту. Закриваємо запит щодо конкретної функції.</div>
+      </div>
+      <div class="logic-col">
+        <div class="logic-h">Емоційна комунікація</div>
+        <div class="body">Захоплення й подив. Лімбічна частина мозку. Імпульс, інсайт, впізнавання.</div>
+      </div>
+      <div class="logic-col">
+        <div class="logic-h">Brand Lovemap</div>
+        <div class="body">Стосунки. Карта ядра аудиторії. Модель поведінки бренда в довгостроковій перспективі.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:36px;border-top:1px solid var(--line);padding-top:32px">
+      <div class="sec-label">Логіка брендингу</div>
+      <div class="body">Створення системи координат: структури орієнтирів «добре–погано» в рамках цієї системи.<br><br>Показуємо не картинку, не фасад — заявляємо позицію, яку підкріплюємо діями.<br>Дія на противагу формальній демонстрації. Це розбудова світогляду.</div>
+      <div class="quote" style="margin-top:16px;font-size:clamp(13px,1.6vw,18px)">«Потрібно створювати образ для свого споживача, взаємодіючи з ним — навіть якщо він «інша» людина.»</div>
+    </div>
+  </div>
+
+  <!-- Brand Lovemap -->
+  <div class="zone" data-s="3" data-c="strat">
+    <div class="sec-label">Brand Lovemap</div>
+    <div class="love-f">LOVE EXPRESSION = <strong>ARCHETYPE</strong> × <strong>NEED</strong> × <strong>RELATIONSHIP ROLE</strong></div>
+    <div class="quote" style="font-size:clamp(13px,1.6vw,18px)">«Люди не закохуються — вони знаходять того, хто може любити їх «правильним» чином. Таку любов може проявляти і бренд.»</div>
+
+    <!-- Карта любові: діаграма -->
+    <div style="display:flex;align-items:center;gap:clamp(16px,3vw,48px);margin:36px 0;flex-wrap:wrap">
+      <!-- Oval -->
+      <div style="border:2px solid var(--red);border-radius:50%;padding:clamp(20px,2.5vw,36px) clamp(24px,3vw,44px);text-align:center;flex-shrink:0">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--fg);margin-bottom:10px">Карта любові</div>
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg2);line-height:1.8">поведінкова модель<br>бренду у відносинах</div>
+      </div>
+      <!-- Arrow -->
+      <div style="color:var(--red);font-size:32px;line-height:1;flex-shrink:0">→</div>
+      <!-- List -->
+      <div class="body" style="line-height:2.2">
+        Як я даю тобі безпеку<br>
+        Як я даю тобі новизну<br>
+        Як я даю тобі значимість<br>
+        Як я даю тобі причетність<br>
+        Як я веду тебе до росту<br>
+        Як я допомагаю залишити слід
+      </div>
+    </div>
+
+    <!-- Таблиця-фреймворк -->
+    <div class="sec-label" style="margin-top:8px">Фреймворк: Архетип × Потреба × Роль стосунків</div>
+    <div class="arch">
+      <div class="arch-c h">Архетип</div><div class="arch-c h">Потреба</div><div class="arch-c h">Роль стосунків</div>
+      <div class="arch-c">Дитина</div><div class="arch-c">Безпека</div><div class="arch-c">Друг / Подруга</div>
+      <div class="arch-c">Мудрець</div><div class="arch-c">Новизна</div><div class="arch-c">Колега</div>
+      <div class="arch-c">Дослідник</div><div class="arch-c">Значимість</div><div class="arch-c">Партнер</div>
+      <div class="arch-c">Бунтар</div><div class="arch-c">Причетність</div><div class="arch-c">Дівчина / Хлопець</div>
+      <div class="arch-c">Хороший хлопець</div><div class="arch-c">Зростання</div><div class="arch-c">Наставник</div>
+      <div class="arch-c">Блазень</div><div class="arch-c">Залишити слід</div><div class="arch-c">Начальник</div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div class="zone" data-s="3" data-c="strat" style="padding-bottom:0">
+    <div class="sec-label">З чим я можу допомогти</div>
+  </div>
+  <div class="srv-grid">
+    <div class="srv-col">
+      <div class="srv-n">I</div>
+      <div class="srv-h">Креатив та комунікація</div>
+      <ul class="srv-ul"><li>Стратегія комунікації</li><li>Ідея кампанії</li><li>Ключовий меседж і TOV</li><li>Сценарій / Маніфест</li><li>Контент-план</li></ul>
+    </div>
+    <div class="srv-col">
+      <div class="srv-n">II</div>
+      <div class="srv-h">Брендинг</div>
+      <ul class="srv-ul"><li>Позиціонування</li><li>Неймінг</li><li>Айдентика / Адаптація</li><li>Логотип, кольори, типографіка</li><li>Брендбук</li></ul>
+    </div>
+    <div class="srv-col">
+      <div class="srv-n">III</div>
+      <div class="srv-h">Графіка</div>
+      <ul class="srv-ul"><li>Банер / Макет</li><li>SMM-матеріали</li><li>Motion-графіка</li><li>Рекламні креативи</li><li>Дизайн сайту</li></ul>
+    </div>
+  </div>
+
+</div>
+</div><!-- /стратегія -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-l">Таня Каменєва · Creative Director · 2026</div>
+  <div class="footer-r">
+    <a class="f-link" href="mailto:kameneva2709@gmail.com">kameneva2709@gmail.com</a>
+    <button class="f-link" onclick="dlCV()">↓ Скачати CV</button>
+  </div>
+</footer>
+
+</main>
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+<script>
+// ── Progress ──
+window.addEventListener('scroll',()=>{
+  const p=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  document.getElementById('prog').style.width=p+'%';
+},{passive:true});
+
+// ── Scroll-spy (scroll-based, reliable for tall sections) ──
+const spyEls=[...document.querySelectorAll('[data-s][data-c]')];
+
+function updateSpy(){
+  const line=120; // px from top (nav 56 + tabs 40 + buffer 24)
+  let active=null;
+  for(const el of spyEls){
+    const top=el.getBoundingClientRect().top;
+    if(top<=line) active=el;
+  }
+  if(active){
+    setSb(+active.dataset.s);
+    setTabs(active.dataset.c);
+  }
+}
+
+window.addEventListener('scroll',updateSpy,{passive:true});
+window.addEventListener('resize',updateSpy,{passive:true});
+updateSpy();
+
+function setSb(n){
+  [1,2,3].forEach(i=>document.getElementById('sb'+i).classList.toggle('active',i===n));
+}
+
+function setTabs(c){
+  // highlight matching cat-tab
+  document.querySelectorAll('.cat-tab').forEach(t=>{
+    const match= t.dataset.c===c
+      || (c==='all'&&t.dataset.c==='all')
+      || (c==='strat'&&t.dataset.c==='all');
+    t.classList.toggle('active',match);
+  });
+  // highlight matching nav button
+  const map={brand:'nb-brand',id:'nb-id',adv:'nb-adv',global:'nb-global',strat:'nb-strat'};
+  const activeId=map[c];
+  ['nb-brand','nb-id','nb-adv','nb-global','nb-strat'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('active',id===activeId);
+  });
+}
+
+// ── Tab click ──
+const catIds={all:'hero',brand:'s-brand',id:'s-id',adv:'s-adv',global:'s-global',strat:'s-strat'};
+function tabClick(c,btn){
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  scrollTo(catIds[c]||'hero');
+}
+
+// ── Sidebar click ──
+function sbClick(n){
+  if(n===1){scrollTo('hero');return;}
+  if(n===3){scrollTo('s-strat');return;}
+  // n===2: scroll to first project section
+  scrollTo('s-brand');
+}
+
+// ── Nav goto ──
+function gotoSection(id){
+  scrollTo(id);
+  if(document.getElementById('mob').classList.contains('open'))toggleMob();
+}
+
+function scrollTo(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const top=el.getBoundingClientRect().top+window.scrollY;
+  window.scrollTo({top:top-97,behavior:'smooth'});
+}
+
+// ── Mobile ──
+function toggleMob(){document.getElementById('mob').classList.toggle('open')}
+
+// ── Parallax ──
+const noParallax=()=>window.innerWidth<900||window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+const heroImg    = document.querySelector('.hero-photo img');
+const heroName   = document.querySelector('.hero-name');
+const heroRole   = document.querySelector('.hero-role');
+const heroExp    = document.querySelector('.hero-exp');
+const slideImgs  = [...document.querySelectorAll('.slide img,.slide2 img,.slide3 img')];
+const projTitles = [...document.querySelectorAll('.project-title')];
+const strips     = [...document.querySelectorAll('.strip')];
+const zoneTxts   = [...document.querySelectorAll('.zone')];
+
+function vp(r,vh){ return(vh-r.top)/(vh+r.height); }
+
+let rafId=null;
+function runParallax(){
+  rafId=null;
+  if(noParallax())return;
+  const sy=window.scrollY;
+  const vh=window.innerHeight;
+
+  // ① Hero photo — slow background (0.28×)
+  if(heroImg) heroImg.style.transform=`translateY(${sy*0.28}px)`;
+
+  // ② Hero name — fastest text layer (0.22×), clearly dynamic
+  if(heroName) heroName.style.transform=`translateY(${sy*0.22}px)`;
+
+  // ③ Hero role line — mid speed (0.15×)
+  if(heroRole) heroRole.style.transform=`translateY(${sy*0.15}px)`;
+
+  // ④ Hero exp table — slowest text layer (0.07×), separates from name as you scroll
+  if(heroExp) heroExp.style.transform=`translateY(${sy*0.07}px)`;
+
+  // ⑤ Slide images — pull back ±37px + scale 1.06  (×1.5)
+  slideImgs.forEach(img=>{
+    const r=img.getBoundingClientRect();
+    if(r.bottom<-100||r.top>vh+100)return;
+    img.style.transform=`translateY(${(vp(r,vh)-0.5)*75}px) scale(1.06)`;
+  });
+
+  // ⑥ Project titles — float toward viewer ±30px  (×1.5)
+  projTitles.forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.bottom<-100||r.top>vh+100)return;
+    el.style.transform=`translateY(${(vp(r,vh)-0.5)*(-60)}px)`;
+  });
+
+  // ⑦ Strip headers — slow background ±21px  (×1.5)
+  strips.forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.bottom<-100||r.top>vh+100)return;
+    el.style.transform=`translateY(${(vp(r,vh)-0.5)*(-42)}px)`;
+  });
+
+  // ⑧ Zone text — counter-direction ±17px  (×1.5)
+  zoneTxts.forEach(z=>{
+    const r=z.getBoundingClientRect();
+    if(r.bottom<-100||r.top>vh+100)return;
+    z.style.transform=`translateY(${(vp(r,vh)-0.5)*(-33)}px)`;
+  });
+}
+
+function onScroll(){
+  if(!rafId) rafId=requestAnimationFrame(runParallax);
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',()=>{
+  if(noParallax()){
+    [heroImg,heroName,heroRole,heroExp,...slideImgs,...projTitles,...strips,...zoneTxts]
+      .forEach(el=>{if(el){el.style.transform='';el.style.opacity='';}});
+  } else { runParallax(); }
+},{passive:true});
+runParallax();
+
+// ── CV ──
+function dlCV(){
+  const a=document.createElement('a');
+  a.href='assets/CV_Kamenieva.pdf';
+  a.download='CV_Kamenieva.pdf';
+  a.click();
+}
+</script>
+</body>
+</html>
