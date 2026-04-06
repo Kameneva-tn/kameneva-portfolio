@@ -65,6 +65,9 @@ body{
 }
 .nav-btn:first-child{border-left:none}
 .nav-btn:hover,.nav-btn.active{color:var(--fg)}
+.nav-sec{color:var(--fg2);font-size:9px}
+.nav-sec:hover,.nav-sec.active{color:var(--fg)}
+.nav-divider{width:1px;height:20px;background:var(--line2);margin:0 4px;align-self:center;flex-shrink:0}
 
 .nav-cv{
   background:none;border:1px solid var(--muted2);font-family:inherit;
@@ -81,6 +84,8 @@ body{
 .mob-menu.open{display:flex}
 .mob-btn{background:none;border:none;border-bottom:1px solid var(--line);font-family:inherit;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg2);text-align:left;padding:16px 24px;cursor:pointer}
 .mob-btn:hover{color:var(--fg);background:var(--bg)}
+.mob-sec{font-size:11px;font-weight:600;color:var(--fg)}
+.mob-divider{height:1px;background:var(--line2);margin:4px 0}
 
 /* ═══════════════════════════════════════════
    CATEGORY TABS
@@ -347,16 +352,19 @@ body{
 
 <!-- ═══ NAV ═══ -->
 <nav class="nav">
-  <a class="nav-logo" href="#hero" onclick="gotoSection('hero')">
+  <a class="nav-logo" href="#hero" onclick="jumpTo('hero');return false;">
     <span class="nav-name">Таня Каменєва</span>
     <span class="nav-role">Creative Director</span>
   </a>
   <div class="nav-links">
-    <button class="nav-btn" id="nb-brand"  onclick="gotoSection('s-brand')">Брендинг</button>
-    <button class="nav-btn" id="nb-id"     onclick="gotoSection('s-id')">Айдентика</button>
-    <button class="nav-btn" id="nb-adv"    onclick="gotoSection('s-adv')">Рекламні кампанії</button>
-    <button class="nav-btn" id="nb-global" onclick="gotoSection('s-global')">Глобальні акції</button>
-    <button class="nav-btn" id="nb-strat"  onclick="gotoSection('s-strat')">Стратегія</button>
+    <button class="nav-btn nav-sec" id="nb-who"   onclick="jumpTo('hero')">Хто я</button>
+    <button class="nav-btn nav-sec" id="nb-what"  onclick="jumpTo('p-maria-galland')">Що я роблю</button>
+    <button class="nav-btn nav-sec" id="nb-how"   onclick="jumpTo('s-strat')">Як я роблю</button>
+    <span class="nav-divider"></span>
+    <button class="nav-btn" id="nb-brand"  onclick="jumpTo('p-maria-galland')">Брендинг</button>
+    <button class="nav-btn" id="nb-id"     onclick="jumpTo('p-froobook')">Айдентика</button>
+    <button class="nav-btn" id="nb-adv"    onclick="jumpTo('p-dr-spiller')">Рекламні кампанії</button>
+    <button class="nav-btn" id="nb-global" onclick="jumpTo('p-totis-global')">Глобальні акції</button>
   </div>
   <button class="nav-cv" onclick="dlCV()">↓&nbsp;Скачати CV</button>
   <button class="burger" id="burg" onclick="toggleMob()"><span></span><span></span><span></span></button>
@@ -364,11 +372,14 @@ body{
 
 <!-- mobile menu -->
 <div class="mob-menu" id="mob">
-  <button class="mob-btn" onclick="gotoSection('s-brand');toggleMob()">Брендинг</button>
-  <button class="mob-btn" onclick="gotoSection('s-id');toggleMob()">Айдентика</button>
-  <button class="mob-btn" onclick="gotoSection('s-adv');toggleMob()">Рекламні кампанії</button>
-  <button class="mob-btn" onclick="gotoSection('s-global');toggleMob()">Глобальні акції</button>
-  <button class="mob-btn" onclick="gotoSection('s-strat');toggleMob()">Стратегія</button>
+  <button class="mob-btn mob-sec" onclick="jumpTo('hero');toggleMob()">01 — Хто я</button>
+  <button class="mob-btn mob-sec" onclick="jumpTo('p-maria-galland');toggleMob()">02 — Що я роблю</button>
+  <button class="mob-btn mob-sec" onclick="jumpTo('s-strat');toggleMob()">03 — Як я роблю</button>
+  <div class="mob-divider"></div>
+  <button class="mob-btn" onclick="jumpTo('p-maria-galland');toggleMob()">Брендинг</button>
+  <button class="mob-btn" onclick="jumpTo('p-froobook');toggleMob()">Айдентика</button>
+  <button class="mob-btn" onclick="jumpTo('p-dr-spiller');toggleMob()">Рекламні кампанії</button>
+  <button class="mob-btn" onclick="jumpTo('p-totis-global');toggleMob()">Глобальні акції</button>
   <button class="mob-btn" onclick="dlCV();toggleMob()">↓ Скачати CV</button>
 </div>
 
@@ -446,7 +457,7 @@ body{
 
 <!-- MARIA GALLAND -->
 <div class="project">
-  <div class="project-title">Maria Galland</div>
+  <div class="project-title" id="p-maria-galland">Maria Galland</div>
 
   <div class="zone" data-s="2" data-c="brand">
     <div class="sec-label">01 — Хто клієнт</div>
@@ -542,7 +553,7 @@ body{
 
 <!-- FROOBOOK -->
 <div class="project">
-  <div class="project-title">Froobook</div>
+  <div class="project-title" id="p-froobook">Froobook</div>
 
   <div class="zone" data-s="2" data-c="id">
     <div class="sec-label">01 — Хто клієнт</div>
@@ -641,7 +652,7 @@ body{
 
 <!-- DR SPILLER -->
 <div class="project">
-  <div class="project-title">Dr Spiller</div>
+  <div class="project-title" id="p-dr-spiller">Dr Spiller</div>
 
   <div class="zone" data-s="2" data-c="adv">
     <div class="sec-label">01 — Хто клієнт</div>
@@ -683,7 +694,7 @@ body{
 <div class="strip" data-s="2" data-c="global">02 — Що я роблю · Глобальні акції</div>
 
 <div class="project">
-  <div class="project-title">Totis — Глобальні акції</div>
+  <div class="project-title" id="p-totis-global">Totis — Глобальні акції</div>
 
   <div class="zone" data-s="2" data-c="global">
     <div class="sec-label">01 — Хто клієнт</div>
@@ -923,32 +934,28 @@ function setTabs(c){
 }
 
 // ── Tab click ──
-const catIds={all:'hero',brand:'s-brand',id:'s-id',adv:'s-adv',global:'s-global',strat:'s-strat'};
+const catIds={all:'hero',brand:'p-maria-galland',id:'p-froobook',adv:'p-dr-spiller',global:'p-totis-global',strat:'s-strat'};
 function tabClick(c,btn){
   document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  scrollTo(catIds[c]||'hero');
+  jumpTo(catIds[c]||'hero');
 }
 
 // ── Sidebar click ──
 function sbClick(n){
-  if(n===1){scrollTo('hero');return;}
-  if(n===3){scrollTo('s-strat');return;}
-  // n===2: scroll to first project section
-  scrollTo('s-brand');
+  if(n===1){jumpTo('hero');return;}
+  if(n===3){jumpTo('s-strat');return;}
+  jumpTo('p-maria-galland');
 }
 
 // ── Nav goto ──
-function gotoSection(id){
-  scrollTo(id);
-  if(document.getElementById('mob').classList.contains('open'))toggleMob();
-}
+function gotoSection(id){ jumpTo(id); }
 
-function scrollTo(id){
+function jumpTo(id){
   const el=document.getElementById(id);
   if(!el)return;
-  const top=el.getBoundingClientRect().top+window.scrollY;
-  window.scrollTo({top:top-97,behavior:'smooth'});
+  const y=el.getBoundingClientRect().top+window.scrollY-100;
+  window.scrollTo({top:y,behavior:'smooth'});
 }
 
 // ── Mobile ──
