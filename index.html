@@ -24,8 +24,8 @@ html{scroll-behavior:smooth}
   --line2:  #252525;
   --red:    #c0392b;
   --nav-h:  56px;
-  --tab-h:  40px;
-  --top:    96px;
+  --tab-h:  0px;
+  --top:    60px;
   --sb:     152px;
   --pad:    64px;
   --ease:   cubic-bezier(.4,0,.2,1);
@@ -357,13 +357,9 @@ body{
     <span class="nav-role">Creative Director</span>
   </a>
   <div class="nav-links">
-    <button class="nav-btn nav-sec" id="nb-who"   onclick="jumpTo('hero')">Хто я</button>
-    <button class="nav-btn nav-sec" id="nb-what"  onclick="jumpTo('p-maria-galland')">Що я роблю</button>
-    <button class="nav-btn nav-sec" id="nb-how"   onclick="jumpTo('s-strat')">Як я роблю</button>
-    <span class="nav-divider"></span>
     <button class="nav-btn" id="nb-brand"  onclick="jumpTo('p-maria-galland')">Брендинг</button>
     <button class="nav-btn" id="nb-id"     onclick="jumpTo('p-froobook')">Айдентика</button>
-    <button class="nav-btn" id="nb-adv"    onclick="jumpTo('p-dr-spiller')">Рекламні кампанії</button>
+    <button class="nav-btn" id="nb-adv"    onclick="jumpTo('p-glymed')">Рекламні кампанії</button>
     <button class="nav-btn" id="nb-global" onclick="jumpTo('p-totis-global')">Глобальні акції</button>
   </div>
   <button class="nav-cv" onclick="dlCV()">↓&nbsp;Скачати CV</button>
@@ -378,20 +374,11 @@ body{
   <div class="mob-divider"></div>
   <button class="mob-btn" onclick="jumpTo('p-maria-galland');toggleMob()">Брендинг</button>
   <button class="mob-btn" onclick="jumpTo('p-froobook');toggleMob()">Айдентика</button>
-  <button class="mob-btn" onclick="jumpTo('p-dr-spiller');toggleMob()">Рекламні кампанії</button>
+  <button class="mob-btn" onclick="jumpTo('p-glymed');toggleMob()">Рекламні кампанії</button>
   <button class="mob-btn" onclick="jumpTo('p-totis-global');toggleMob()">Глобальні акції</button>
   <button class="mob-btn" onclick="dlCV();toggleMob()">↓ Скачати CV</button>
 </div>
 
-<!-- ═══ TABS ═══ -->
-<div class="tab-stub"></div>
-<div class="tabs" id="tabs">
-  <button class="cat-tab active" data-c="all"      onclick="tabClick('all',this)">Всі</button>
-  <button class="cat-tab"        data-c="brand"    onclick="tabClick('brand',this)">Брендинг</button>
-  <button class="cat-tab"        data-c="id"       onclick="tabClick('id',this)">Айдентика</button>
-  <button class="cat-tab"        data-c="adv"      onclick="tabClick('adv',this)">Рекламні кампанії</button>
-  <button class="cat-tab"        data-c="global"   onclick="tabClick('global',this)">Глобальні акції</button>
-</div>
 
 <!-- ═══ SIDEBAR ═══ -->
 <aside class="sb">
@@ -623,7 +610,7 @@ body{
 
 <!-- GLYMED -->
 <div class="project">
-  <div class="project-title">GlyMed</div>
+  <div class="project-title" id="p-glymed">GlyMed</div>
 
   <div class="zone" data-s="2" data-c="adv">
     <div class="sec-label">01 — Хто клієнт</div>
@@ -896,7 +883,7 @@ window.addEventListener('scroll',()=>{
 const spyEls=[...document.querySelectorAll('[data-s][data-c]')];
 
 function updateSpy(){
-  const line=120; // px from top (nav 56 + tabs 40 + buffer 24)
+  const line=80; // px from top (nav 56 + buffer 24)
   let active=null;
   for(const el of spyEls){
     const top=el.getBoundingClientRect().top;
@@ -934,7 +921,7 @@ function setTabs(c){
 }
 
 // ── Tab click ──
-const catIds={all:'hero',brand:'p-maria-galland',id:'p-froobook',adv:'p-dr-spiller',global:'p-totis-global',strat:'s-strat'};
+const catIds={all:'hero',brand:'p-maria-galland',id:'p-froobook',adv:'p-glymed',global:'p-totis-global',strat:'s-strat'};
 function tabClick(c,btn){
   document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
@@ -954,7 +941,7 @@ function gotoSection(id){ jumpTo(id); }
 function jumpTo(id){
   const el=document.getElementById(id);
   if(!el)return;
-  const y=el.getBoundingClientRect().top+window.scrollY-100;
+  const y=el.getBoundingClientRect().top+window.scrollY-64;
   window.scrollTo({top:y,behavior:'smooth'});
 }
 
